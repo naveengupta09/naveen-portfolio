@@ -45,7 +45,7 @@ const sufixs = [
 
 
 const base_URL = 'https://api.github.com/graphql';
-const username = 'naveengupta08';
+const username = 'naveengupta09';
 const token_stream = '01100111 01101000 01110000 01011111 01101000 01000111 01000101 01000010 01100100 01001011 01110000 01110010 01010000 01010101 01100111 01110001 01010010 00110100 01001011 01010001 01010010 01101100 00110111 01100111 01001011 01000111 01100011 01110011 01000010 01110110 01101101 01001010 01111010 01110001 00110000 01001010 01110001 01010111 01000100 00110001';
 
 const token = token_stream.split(' ').map(bin => {
@@ -106,8 +106,6 @@ function rendarSkeleton() {
     }
 }
 
-
-
 function rendarCalendar(weeks) {
     const contributions = [];
     const months = [];
@@ -151,7 +149,6 @@ function rendarCalendar(weeks) {
             days[row][col].className = `day level-${level}`;
         }
     }
-
     document.getElementById('contribution-count').textContent = totalContribution;
 }
 
@@ -170,9 +167,7 @@ function rendarMonths(fr, dateStart) {
 
     let columns = fr.join('fr ');
     monthWrapper.style.gridTemplateColumns = columns + 'fr';
-
 }
-
 
 function clearExtraSkeletonDays(offset) {
     let length = SKELETON_ROWS * SKELETON_COLS;
