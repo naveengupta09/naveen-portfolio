@@ -1,7 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://mrcodium.netlify.app/sitemap.xml
-avatar
-Ask In Chat
-Ask In Chat
+Sitemap: https://naveengupta.netlify.app/sitemap.xml

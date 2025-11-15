@@ -33,6 +33,25 @@ p .a:hover {
 .btn:hover {
     border-color: #909090;
 }
+
+.btn.primary {
+    background-color: #ffdb70;
+    color: #121212;
+    border-color: #ffdb70;
+    font-weight: 600;
+}
+
+.btn.primary:hover {
+    background-color: #ffe082;
+    border-color: #ffe082;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 219, 112, 0.3);
+}
+
+.text-muted-foreground {
+    color: var(--old-white);
+    opacity: 0.9;
+}
 .icon{
     aspect-ratio: 1;
     width: 24px;

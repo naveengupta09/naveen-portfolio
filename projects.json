@@ -2,7 +2,7 @@
   "projects": [
     {
       "name": "Project Name",
-      "image": "assets/project preview/default.png",
+      "image": "assets/project-preview/default.png",
       "description": "Project Short Descriptions",
       "btns": [
         {
@@ -13,7 +13,7 @@
     },
     {
       "name": "Project Name",
-      "image": "assets/project preview/default.png",
+      "image": "assets/project-preview/default.png",
       "description": "Project Short Descriptions",
       "btns": [
         {
@@ -24,7 +24,7 @@
     },
     {
       "name": "Project Name",
-      "image": "assets/project preview/default.png",
+      "image": "assets/project-preview/default.png",
       "description": "Project Short Descriptions",
       "btns": [
         {
@@ -35,7 +35,7 @@
     },
     {
       "name": "Project Name",
-      "image": "assets/project preview/default.png",
+      "image": "assets/project-preview/default.png",
       "description": "Project Short Descriptions",
       "btns": [
         {

@@ -7,13 +7,16 @@ let web_skillElement = null;
 let dsa_chart = null;
 let web_chart = null;
 
-const dsa_ctx = document.getElementById('dsa_chart').getContext('2d');
-const web_ctx = document.getElementById('web_chart').getContext('2d');
+const dsa_ctx = document.getElementById('dsa_chart')?.getContext('2d');
+let web_ctx = null;
+let gradient = null;
 
-// Create gradient
-const gradient = web_ctx.createLinearGradient(0, 0, 0, 400);
-gradient.addColorStop(0, 'rgba(255, 50, 0, 0.75)');
-gradient.addColorStop(1, 'rgba(254, 202, 102, 0.75)');
+// Initialize gradient if web_chart exists, otherwise use dsa_ctx
+if (dsa_ctx) {
+    gradient = dsa_ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(255, 50, 0, 0.75)');
+    gradient.addColorStop(1, 'rgba(254, 202, 102, 0.75)');
+}
 
 //fetching data
 fetch('skills.json')
@@ -22,11 +25,19 @@ fetch('skills.json')
     })
     .then(data => {
         skillData = data;
-        dsa_skillElement = renderBars(dsa_skills, data.DSA.Advanced);
-        web_skillElement = renderBars(web_skills, data.Frontend);
+        if (dsa_skills) {
+            dsa_skillElement = renderBars(dsa_skills, data.DSA.Advanced);
+        }
+        if (web_skills && data.Frontend) {
+            web_skillElement = renderBars(web_skills, data.Frontend);
+        }
 
-        dsa_chart = renderChart(dsa_ctx, data.DSA.Fundamental, 'Fundamental');
-        web_chart = renderChart(web_ctx, data.Frontend, 'Frontend');
+        if (dsa_ctx) {
+            dsa_chart = renderChart(dsa_ctx, data.DSA.Fundamental, 'Fundamental');
+        }
+        if (web_ctx && data.Frontend) {
+            web_chart = renderChart(web_ctx, data.Frontend, 'Frontend');
+        }
     })
     .catch(e => {
         console.error(e);
