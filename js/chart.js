@@ -3,55 +3,62 @@ const dsa_skills = document.getElementById('dsa_skills');
 const web_skills = document.getElementById('web_skills');
 
 let dsa_skillElement = null;
-let web_skillElement = null;
 let dsa_chart = null;
 let web_chart = null;
 
-const dsa_ctx = document.getElementById('dsa_chart')?.getContext('2d');
-let web_ctx = null;
-let gradient = null;
-
-// Initialize gradient if web_chart exists, otherwise use dsa_ctx
-if (dsa_ctx) {
-    gradient = dsa_ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(255, 50, 0, 0.75)');
-    gradient.addColorStop(1, 'rgba(254, 202, 102, 0.75)');
+const dsaSkills = {
+    "Advanced": {
+        "Divide and Conquer": 69,
+        "Union Find": 30,
+        "DP": 79, 
+        "Backtracking": 48,
+        "Trie": 21,
+        "Game Theory": 90
+    },
+    "Intermediate": {
+        "DFS": 70,
+        "Hash Table": 90,
+        "BFS": 60,
+        "Tree": 55,
+        "Math": 45,
+        "Greedy": 60
+    },
+    "Fundamental": {
+        "Array": 90,
+        "String": 85,
+        "Sorting": 70,
+        "Two Pointers": 77,
+        "Matrix": 92,
+        "Linked List": 95
+    }
 }
 
-//fetching data
-fetch('skills.json')
-    .then((res) => {
-        if (res.ok) return res.json();
-    })
-    .then(data => {
-        skillData = data;
-        if (dsa_skills) {
-            dsa_skillElement = renderBars(dsa_skills, data.DSA.Advanced);
-        }
-        if (web_skills && data.Frontend) {
-            web_skillElement = renderBars(web_skills, data.Frontend);
-        }
+// helper function to update chart data on btn interaction
+function updateChart(field) {
+    let labels, values;
+    labels = Object.keys(dsaSkills[field]);
+    values = Object.values(dsaSkills[field]);
+    updateDataset(dsa_chart, dsa_skillElement, labels, values, field);
+}
 
-        if (dsa_ctx) {
-            dsa_chart = renderChart(dsa_ctx, data.DSA.Fundamental, 'Fundamental');
-        }
-        if (web_ctx && data.Frontend) {
-            web_chart = renderChart(web_ctx, data.Frontend, 'Frontend');
-        }
-    })
-    .catch(e => {
-        console.error(e);
-    });
+const dsa_ctx = document.getElementById('dsa_chart').getContext('2d');
 
+// Create gradient
+const gradient = dsa_ctx.createLinearGradient(0, 0, 0, 400);
+gradient.addColorStop(0, 'rgba(255, 50, 0, 0.75)');
+gradient.addColorStop(1, 'rgba(254, 202, 102, 0.75)');
 
+// Initialize the bars and chart
+dsa_skillElement = renderBars(dsa_skills, dsaSkills.Fundamental);
+dsa_chart = renderChart(dsa_ctx, dsaSkills.Fundamental, 'Fundamental');
 
-//renderingt the skill progress bars
+//rendering the skill progress bars
 function renderBars(parent, data) {
     // Create an array to store all HTML fragments
     const htmlFragments = Object.entries(data).map(([label, value]) => {
         return `
             <li>
-                <h5>${label}</h5>
+                <strong>${label}</strong>
                 <data value="${value}">${value}%</data>
                 <div class="skill-progress">
                     <div class="bar" style="width: ${value}%;"></div>
@@ -63,7 +70,7 @@ function renderBars(parent, data) {
     // Join all HTML fragments into a single string and assign to innerHTML
     parent.innerHTML = htmlFragments.join('');
     return {
-        labels: parent.querySelectorAll('h5'),
+        labels: parent.querySelectorAll('strong'),  // Changed from 'h5' to 'strong'
         data: parent.querySelectorAll('data'),
         bar: parent.querySelectorAll('.bar'),
     }
@@ -143,8 +150,3 @@ function updateDataset(chart, skillElement, labels, values, title) {
         skillElement.bar[i].style.width = `${values[i]}%`;
     }
 }
-
-
-
-
-

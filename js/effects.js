@@ -1,50 +1,37 @@
-const write = document.querySelector('.write');
-let text = write.innerText;
-let animation = [];
+// Typing effect
+document.addEventListener('DOMContentLoaded', function() {
+  const writeElement = document.querySelector('.write');
+  const roles = ['Developer', 'Programmer', 'Problem Solver', 'MERN Stack Developer'];
+  let roleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 100;
 
-list = [
-    'developer',
-    'student',
-    'fresher',
-];
-
-let i = 0;
-const SPEED = 8;
-const INTERVAL = 2500;
-const vowel = /^[aeiou]$/;
-
-animate(list[i++]);
-function animate(text) {
-    text = text.toLowerCase();
-    animation = [];
-    write.classList.add('writing');
-
-    if(vowel.test(text[0])){
+  function type() {
+    const currentRole = roles[roleIndex];
+    
+    if (isDeleting) {
+      writeElement.textContent = currentRole.substring(0, charIndex - 1);
+      charIndex--;
+      typingSpeed = 50;
+    } else {
+      writeElement.textContent = currentRole.substring(0, charIndex + 1);
+      charIndex++;
+      typingSpeed = 100;
     }
 
-    let str = "";
-    let count = 0;
-    for (const char of text) {
-        for (let i = 'a'.charCodeAt(0); i <= char.charCodeAt(0); ++i) {
-            animation.push(str + String.fromCharCode(i));
-        }
-        str += char;
+    if (!isDeleting && charIndex === currentRole.length) {
+      isDeleting = true;
+      typingSpeed = 1000; // Pause at end
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+      typingSpeed = 500; // Pause before next word
     }
 
-    for (const str of animation) {
-        setTimeout(() => {
-            write.textContent = str;
-        }, SPEED * count++);
-    }
+    setTimeout(type, typingSpeed);
+  }
 
-    //cursor will blink once the writing stop
-    setTimeout(() => {
-        write.classList.remove('writing');
-    }, SPEED * count);
-
-    setTimeout(() => {
-        animate(list[i]);
-        i = (i + 1) % list.length;
-    }, SPEED * count + INTERVAL);
-
-}
+  // Start typing effect
+  setTimeout(type, 1000);
+});
