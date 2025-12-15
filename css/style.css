@@ -471,6 +471,9 @@ section {
     grid-template-columns: auto 1fr;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
 }
 
 .week-days {
@@ -487,6 +490,7 @@ section {
     display: grid;
     grid-template-columns: repeat(53, 1fr);
     gap: 3px;
+    min-width: 720px;
 }
 
 .calendar-day {
@@ -528,6 +532,7 @@ section {
     font-size: 0.75rem;
     color: var(--gray);
     margin-top: 0.5rem;
+    min-width: 720px;
 }
 
 .calendar-legend {
